@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Trị - Thêm Bài Viết</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header admin-header">
+        <div class="container">
+            <h1>Hệ Thống Quản Trị</h1>
+            <nav>
+                <a href="index.html">Quay lại Trang chủ</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container admin-container">
+        <div class="admin-card">
+            <h2>Đăng bài tuyển dụng mới</h2>
+            
+            <!-- Khu vực cấu hình GitHub -->
+            <div class="settings-group">
+                <h3>Cấu hình GitHub API (Chỉ nhập lần đầu)</h3>
+                <input type="text" id="gh-owner" placeholder="Tên user GitHub (vd: patonline85)" required>
+                <input type="text" id="gh-repo" placeholder="Tên kho lưu trữ (vd: tiemhoanhasen)" required>
+                <input type="password" id="gh-token" placeholder="GitHub Personal Access Token" required>
+            </div>
+
+            <form id="post-form">
+                <div class="form-group">
+                    <label for="title">Tiêu đề công việc:</label>
+                    <input type="text" id="title" required placeholder="VD: Nhân viên Marketing">
+                </div>
+                
+                <div class="form-group">
+                    <label for="image">Hình ảnh (Đường dẫn hoặc file trong thư mục images/):</label>
+                    <input type="text" id="image" required placeholder="VD: images/anh-cong-ty.jpg">
+                </div>
+
+                <div class="form-group row">
+                    <div class="col">
+                        <label for="salary">Mức lương:</label>
+                        <input type="text" id="salary" required placeholder="VD: 10 - 15 Triệu">
+                    </div>
+                    <div class="col">
+                        <label for="location">Địa điểm:</label>
+                        <input type="text" id="location" required placeholder="VD: Hà Nội">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="content">Mô tả công việc:</label>
+                    <textarea id="content" rows="6" required placeholder="Nhập chi tiết yêu cầu, quyền lợi..."></textarea>
+                </div>
+
+                <button type="submit" id="submit-btn" class="btn-submit">Đăng Bài</button>
+            </form>
+        </div>
+    </main>
+
+    <script src="admin.js"></script>
+</body>
+</html>
