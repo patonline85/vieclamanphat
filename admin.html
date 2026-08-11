@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Trị - Tiệm Hoa Nhà Sen</title>
+    <title>Quản Trị</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <!-- MÀN HÌNH SOẠN THẢO (Ẩn mặc định) -->
+    <!-- MÀN HÌNH SOẠN THẢO -->
     <div id="editor-screen" class="editor-container" style="display: none;">
         <header class="header admin-header">
             <div class="container header-content">
@@ -31,7 +31,7 @@
             </div>
         </header>
 
-        <main class="container">
+        <main class="container" style="margin-top: 40px;">
             <div class="admin-card">
                 <h2>Soạn bài tuyển dụng</h2>
                 <form id="post-form">
@@ -40,18 +40,17 @@
                         <input type="text" id="title" required placeholder="VD: Tuyển nhân viên bán hàng...">
                     </div>
                     
+                    <!-- NÚT UPLOAD ẢNH MỚI -->
                     <div class="form-group">
-                        <label>Hình ảnh (Tên file trong thư mục images/ hoặc Link ảnh):</label>
-                        <input type="text" id="image" required placeholder="VD: images/anh-tuyen-dung.jpg">
+                        <label>Tải lên Hình ảnh minh họa:</label>
+                        <input type="file" id="image-upload" accept="image/png, image/jpeg, image/jpg" required>
                     </div>
 
                     <div class="form-group">
                         <label>Nội dung (Copy & Paste từ Facebook):</label>
-                        <!-- Textarea được làm lớn hơn để dán bài dài -->
                         <textarea id="content" rows="12" required placeholder="Dán nội dung tuyển dụng vào đây..."></textarea>
                     </div>
 
-                    <!-- Ẩn 2 trường này đi và gán giá trị mặc định trong JS để index.html không bị lỗi giao diện -->
                     <input type="hidden" id="salary" value="Thỏa thuận">
                     <input type="hidden" id="location" value="Hải Phòng">
 
