@@ -1,15 +1,13 @@
 exports.handler = async function(event, context) {
-    // Chỉ chấp nhận request dạng POST
     if (event.httpMethod !== 'POST') {
         return { statusCode: 405, body: 'Method Not Allowed' };
     }
 
     try {
-        // Nhận dữ liệu từ trình duyệt gửi lên
         const data = JSON.parse(event.body);
-        const { username, password, newPost } = data;
+        const { username, password, newPost, imageData } = data;
 
-        // 1. KIỂM TRA ĐĂNG NHẬP BẰNG BIẾN MÔI TRƯỜNG NETLIFY
+        // Kiểm tra quyền
         if (username !== process.env.ADMIN_USER || password !== process.env.ADMIN_PASS) {
             return {
                 statusCode: 401,
@@ -17,34 +15,61 @@ exports.handler = async function(event, context) {
             };
         }
 
-        // Lấy thông tin GitHub từ biến môi trường
         const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
         const GITHUB_USER = process.env.GITHUB_USER;
         const GITHUB_REPO = process.env.GITHUB_REPO;
-        const path = 'data/posts.json';
-        const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${path}`;
 
-        // 2. LẤY FILE DỮ LIỆU CŨ TỪ GITHUB
-        const getResponse = await fetch(apiUrl, {
+        // BƯỚC 1: UPLOAD ẢNH LÊN GITHUB NẾU CÓ
+        let finalImagePath = "https://via.placeholder.com/600x400?text=No+Image";
+        
+        if (imageData && imageData.base64 && imageData.filename) {
+            const imagePath = `images/${imageData.filename}`;
+            const imageApiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${imagePath}`;
+
+            const imgResponse = await fetch(imageApiUrl, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${GITHUB_TOKEN}`,
+                    'Content-Type': 'application/json',
+                    'User-Agent': 'Netlify-Function'
+                },
+                body: JSON.stringify({
+                    message: `Tải ảnh lên: ${imageData.filename}`,
+                    content: imageData.base64
+                })
+            });
+
+            if (!imgResponse.ok) {
+                console.error("Lỗi khi upload ảnh lên GitHub");
+            } else {
+                finalImagePath = imagePath; // Lấy đường dẫn ảnh vừa upload thành công
+            }
+        }
+
+        // BƯỚC 2: GÁN ĐƯỜNG DẪN ẢNH VÀO BÀI ĐĂNG
+        newPost.image = finalImagePath;
+
+        // BƯỚC 3: CẬP NHẬT FILE POSTS.JSON
+        const jsonPath = 'data/posts.json';
+        const jsonApiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${jsonPath}`;
+
+        const getResponse = await fetch(jsonApiUrl, {
             headers: { 
                 'Authorization': `token ${GITHUB_TOKEN}`,
                 'User-Agent': 'Netlify-Function'
             }
         });
         
-        if (!getResponse.ok) throw new Error('Không thể đọc file từ GitHub.');
+        if (!getResponse.ok) throw new Error('Không thể đọc file dữ liệu từ GitHub.');
         const fileData = await getResponse.json();
         
-        // Giải mã file cũ
         const currentContent = Buffer.from(fileData.content, 'base64').toString('utf-8');
         let posts = JSON.parse(currentContent);
         
-        // 3. THÊM BÀI MỚI VÀ MÃ HÓA LẠI
         posts.unshift(newPost);
         const newContentBase64 = Buffer.from(JSON.stringify(posts, null, 2), 'utf-8').toString('base64');
         
-        // 4. GHI ĐÈ FILE LÊN GITHUB
-        const putResponse = await fetch(apiUrl, {
+        const putResponse = await fetch(jsonApiUrl, {
             method: 'PUT',
             headers: { 
                 'Authorization': `token ${GITHUB_TOKEN}`,
@@ -54,16 +79,15 @@ exports.handler = async function(event, context) {
             body: JSON.stringify({
                 message: `Đăng bài: ${newPost.title}`,
                 content: newContentBase64,
-                sha: fileData.sha // Yêu cầu bắt buộc của GitHub
+                sha: fileData.sha
             })
         });
 
         if (!putResponse.ok) throw new Error('Lỗi khi ghi dữ liệu lên GitHub.');
 
-        // Trả về thành công cho trình duyệt
         return {
             statusCode: 200,
-            body: JSON.stringify({ message: "Đăng bài thành công!" })
+            body: JSON.stringify({ message: "Hoàn tất!" })
         };
 
     } catch (error) {
