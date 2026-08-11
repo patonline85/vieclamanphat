@@ -3,63 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Trị - Thêm Bài Viết</title>
+    <title>Quản Trị - Tiệm Hoa Nhà Sen</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <header class="header admin-header">
-        <div class="container">
-            <h1>Hệ Thống Quản Trị</h1>
-            <nav>
-                <a href="index.html">Quay lại Trang chủ</a>
-            </nav>
-        </div>
-    </header>
+<body class="admin-bg">
 
-    <main class="container admin-container">
-        <div class="admin-card">
-            <h2>Đăng bài tuyển dụng mới</h2>
-            
-            <!-- Khu vực cấu hình GitHub -->
-            <div class="settings-group">
-                <h3>Cấu hình GitHub API (Chỉ nhập lần đầu)</h3>
-                <input type="text" id="gh-owner" placeholder="Tên user GitHub (vd: patonline85)" required>
-                <input type="text" id="gh-repo" placeholder="Tên kho lưu trữ (vd: tiemhoanhasen)" required>
-                <input type="password" id="gh-token" placeholder="GitHub Personal Access Token" required>
-            </div>
-
-            <form id="post-form">
-                <div class="form-group">
-                    <label for="title">Tiêu đề công việc:</label>
-                    <input type="text" id="title" required placeholder="VD: Nhân viên Marketing">
-                </div>
-                
-                <div class="form-group">
-                    <label for="image">Hình ảnh (Đường dẫn hoặc file trong thư mục images/):</label>
-                    <input type="text" id="image" required placeholder="VD: images/anh-cong-ty.jpg">
-                </div>
-
-                <div class="form-group row">
-                    <div class="col">
-                        <label for="salary">Mức lương:</label>
-                        <input type="text" id="salary" required placeholder="VD: 10 - 15 Triệu">
-                    </div>
-                    <div class="col">
-                        <label for="location">Địa điểm:</label>
-                        <input type="text" id="location" required placeholder="VD: Hà Nội">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="content">Mô tả công việc:</label>
-                    <textarea id="content" rows="6" required placeholder="Nhập chi tiết yêu cầu, quyền lợi..."></textarea>
-                </div>
-
-                <button type="submit" id="submit-btn" class="btn-submit">Đăng Bài</button>
+    <!-- MÀN HÌNH ĐĂNG NHẬP -->
+    <div id="login-screen" class="login-container">
+        <div class="login-box">
+            <h2>Đăng Nhập Quản Trị</h2>
+            <form id="login-form">
+                <input type="text" id="username" placeholder="Tên đăng nhập" required>
+                <input type="password" id="password" placeholder="Mật khẩu" required>
+                <p id="login-error" class="error-msg" style="display: none;">Sai tài khoản hoặc mật khẩu!</p>
+                <button type="submit" class="btn-submit">Đăng Nhập</button>
             </form>
         </div>
-    </main>
+    </div>
+
+    <!-- MÀN HÌNH SOẠN THẢO (Ẩn mặc định) -->
+    <div id="editor-screen" class="editor-container" style="display: none;">
+        <header class="header admin-header">
+            <div class="container header-content">
+                <h1>Hệ Thống Đăng Bài</h1>
+                <button id="logout-btn" class="btn-logout">Đăng Xuất</button>
+            </div>
+        </header>
+
+        <main class="container">
+            <div class="admin-card">
+                <h2>Soạn bài tuyển dụng</h2>
+                <form id="post-form">
+                    <div class="form-group">
+                        <label>Tiêu đề bài viết:</label>
+                        <input type="text" id="title" required placeholder="VD: Tuyển nhân viên bán hàng...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Hình ảnh (Tên file trong thư mục images/ hoặc Link ảnh):</label>
+                        <input type="text" id="image" required placeholder="VD: images/anh-tuyen-dung.jpg">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nội dung (Copy & Paste từ Facebook):</label>
+                        <!-- Textarea được làm lớn hơn để dán bài dài -->
+                        <textarea id="content" rows="12" required placeholder="Dán nội dung tuyển dụng vào đây..."></textarea>
+                    </div>
+
+                    <!-- Ẩn 2 trường này đi và gán giá trị mặc định trong JS để index.html không bị lỗi giao diện -->
+                    <input type="hidden" id="salary" value="Thỏa thuận">
+                    <input type="hidden" id="location" value="Hải Phòng">
+
+                    <button type="submit" id="submit-btn" class="btn-submit">🚀 Đăng Bài Lên Website</button>
+                </form>
+            </div>
+        </main>
+    </div>
 
     <script src="admin.js"></script>
 </body>
