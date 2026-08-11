@@ -254,7 +254,8 @@ body {
 
 .logo-footer {
     height: 40px;
-    filter: brightness(0) invert(1); /* Làm logo trắng nếu logo gốc là màu đen */
+    object-fit: contain;
+    border-radius: 50%; /* Bạn có thể thêm dòng này để logo bo tròn đồng bộ với các icon */
 }
 
 .brand-desc {
