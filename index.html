@@ -3,38 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tin Tức Tuyển Dụng</title>
+    <title>Tuyển Dụng - Tiệm Hoa Nhà Sen</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Thanh điều hướng -->
     <header class="header">
-        <div class="container">
-            <h1>Cơ Hội Việc Làm</h1>
+        <div class="container header-content">
+            <div class="brand">
+                <img src="logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
+                <h1>Tuyển Dụng</h1>
+            </div>
             <nav>
-                <a href="index.html">Trang chủ</a>
+                <a href="index.html" class="active">Trang chủ</a>
                 <a href="admin.html">Quản trị</a>
-                <a href="#contact">Liên hệ</a>
+                <a href="#contact" class="btn-contact-nav">Liên hệ ngay</a>
             </nav>
         </div>
     </header>
 
+    <!-- Banner chào mừng -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h2>Kiến Tạo Sự Nghiệp Cùng Tiệm Hoa Nhà Sen</h2>
+            <p>Khám phá môi trường làm việc năng động, sáng tạo và lộ trình thăng tiến rõ ràng. Hãy gia nhập đội ngũ của chúng tôi ngay hôm nay!</p>
+        </div>
+    </section>
+
+    <!-- Danh sách việc làm -->
     <main class="container">
         <section class="news-section">
-            <h2 class="section-title">Việc làm mới nhất</h2>
-            <!-- Dữ liệu từ posts.json sẽ được đổ vào đây -->
+            <div class="section-header">
+                <h2 class="section-title">Vị Trí Đang Tuyển Dụng</h2>
+                <div class="title-line"></div>
+            </div>
             <div class="news-grid" id="news-grid">
-                <p>Đang tải dữ liệu...</p>
+                <div class="loading-state">
+                    <div class="spinner"></div>
+                    <p>Đang tải dữ liệu...</p>
+                </div>
             </div>
         </section>
     </main>
 
+    <!-- Chân trang & Liên hệ -->
     <footer id="contact" class="footer">
-        <div class="container">
-            <h2>Liên Hệ Với Chúng Tôi</h2>
-            <p>Email: tuyendung@tiemhoanhasen.com</p>
-            <p>Điện thoại: 0123 456 789</p>
-            <p>Địa chỉ: Số 1, Đường Hoa Sen, Việt Nam</p>
+        <div class="container footer-grid">
+            <!-- Cột 1: Thông tin thương hiệu -->
+            <div class="footer-col brand-info">
+                <div class="brand footer-brand">
+                    <img src="logo.png" alt="Logo" class="logo-footer" onerror="this.style.display='none'">
+                    <h2>Tiệm Hoa Nhà Sen</h2>
+                </div>
+                <p class="brand-desc">Nơi kết nối đam mê và phát triển sự nghiệp. Chúng tôi luôn chào đón những nhân tài đồng hành cùng sự phát triển của công ty.</p>
+            </div>
+
+            <!-- Cột 2: Thông tin liên hệ -->
+            <div class="footer-col contact-info">
+                <h3>Thông Tin Liên Hệ</h3>
+                <ul>
+                    <li>
+                        <span class="icon">📍</span>
+                        <span>Số 1, Đường Hoa Sen, TP. Hải Phòng</span>
+                    </li>
+                    <li>
+                        <span class="icon">📞</span>
+                        <a href="tel:0123456789">0123 456 789</a>
+                    </li>
+                    <li>
+                        <span class="icon">📧</span>
+                        <a href="mailto:tuyendung@tiemhoanhasen.com">tuyendung@tiemhoanhasen.com</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Cột 3: Mạng xã hội -->
+            <div class="footer-col social-info">
+                <h3>Kết Nối Với Chúng Tôi</h3>
+                <p>Theo dõi để không bỏ lỡ các cơ hội việc làm mới nhất.</p>
+                <div class="social-icons">
+                    <!-- Link Facebook -->
+                    <a href="#" target="_blank" class="social-btn facebook" title="Facebook">
+                        <svg viewBox="0 0 24 24" fill="currentColor" height="20" width="20">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <!-- Link Messenger -->
+                    <a href="#" target="_blank" class="social-btn messenger" title="Messenger">
+                        <svg viewBox="0 0 24 24" fill="currentColor" height="20" width="20">
+                            <path d="M12 0C5.373 0 0 5.064 0 11.298c0 3.518 1.802 6.645 4.595 8.681.168.121.282.31.299.519l.235 2.946c.046.576.685.918 1.157.618l3.195-2.032c.164-.105.362-.138.544-.093 1.127.279 2.327.428 3.57.428 6.627 0 12-5.064 12-11.298S18.627 0 12 0zm1.206 15.221l-3.053-3.265c-.328-.351-.874-.4-1.267-.113l-3.69 2.709c-.43.315-.968-.184-.68-.636l3.524-5.526c.264-.413.784-.57 1.229-.368l3.053 1.385c.358.163.774.07 1.074-.239l3.87-3.766c.414-.403.996.113.676.577l-3.469 5.027c-.287.416-.827.56-1.267.215z"/>
+                        </svg>
+                    </a>
+                    <!-- Link Zalo -->
+                    <a href="#" target="_blank" class="social-btn zalo" title="Zalo">
+                        <span class="zalo-text">Zalo</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Tiệm Hoa Nhà Sen. Tất cả các quyền được bảo lưu.</p>
         </div>
     </footer>
 
